@@ -110,7 +110,7 @@ class TaskController extends Controller
         }
 
         return response()->json([
-            'message' => 'You are not authorized to update this task, the task does not exist, or not all dependencies are completed.',
+            'message' => 'You are not authorized to update this task , or the task does not exist, or not all dependencies are completed.',
         ], 403);
     }
 

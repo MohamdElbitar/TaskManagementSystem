@@ -8,6 +8,7 @@ use App\Models\TaskDependency;
 
 class TaskRepository implements TaskRepositoryInterface
 {
+
     public function all()
     {
         return Task::all();
@@ -61,7 +62,7 @@ class TaskRepository implements TaskRepositoryInterface
 
     public function getDependencies($taskId)
     {
-        return TaskDependency::where('task_id', $taskId)->with('dependency')->get();
+        return TaskDependency::where('task_id', $taskId)->with('dependencyData')->get();
     }
 
     public function updateStatus($id, $status, $userId)
@@ -70,8 +71,8 @@ class TaskRepository implements TaskRepositoryInterface
 
         if (!$task || $task->assignee_id !== $userId) {
             return false;
-
-            if ($status === 'completed') {
+        }
+        if ($status === 'completed') {
                 $dependencies = TaskDependency::where('task_id', $id)->get();
 
                 foreach ($dependencies as $dependency) {
@@ -80,12 +81,12 @@ class TaskRepository implements TaskRepositoryInterface
                         return false;
                     }
                 }
-            }
-
-            return $task->update([
-                'status' => $status,
-            ]);
         }
-    }
 
+        return $task->update([
+                'status' => $status,
+        ]);
+    }
 }
+
+

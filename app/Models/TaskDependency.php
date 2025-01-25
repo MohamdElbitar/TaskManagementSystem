@@ -13,13 +13,13 @@ class TaskDependency extends Model
     protected $guarded = [];
 
 
-    public function task()
+    public function taskData()
     {
         return $this->belongsTo(Task::class, 'task_id');
     }
 
 
-    public function dependency()
+    public function dependencyData()
     {
         return $this->belongsTo(Task::class, 'dependency_id');
     }
