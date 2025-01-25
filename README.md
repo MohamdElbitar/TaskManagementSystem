@@ -73,7 +73,7 @@ php artisan serve
 
 Below is the Entity-Relationship Diagram (ERD) for the database:
 
-![ERD Diagram](/images/ERD.png)
+![ERD Diagram](/public/images/ERD.png)
 
 
 ## Contributing
