@@ -45,10 +45,15 @@ Copy the .env.example file to .env
 
 # Update the .env file with your database credentials:
 DB_CONNECTION=mysql
+
 DB_HOST=127.0.0.1
+
 DB_PORT=3306
+
 DB_DATABASE=task_management
+
 DB_USERNAME=root
+
 DB_PASSWORD=
 
 ## Generate Application Key:
