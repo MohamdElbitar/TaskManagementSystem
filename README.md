@@ -32,7 +32,8 @@ Spatie Laravel-Permission
 # 1-Clone the Repository:
 
 git clone https://github.com/MohamdElbitar/TaskManagementSystem.git
-cd task-management-api
+
+cd TaskManagementSystem
 
 ## Install Dependencies:
 
