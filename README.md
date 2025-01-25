@@ -85,4 +85,31 @@ This project is open-source and available under the MIT License.
 ## Contact
 For any questions or issues, please contact [MohamedElbitar](https://github.com/MohamdElbitar).
 
+# Endpoints
+
+Method	   Endpoint	                               Description
+
+POST	   /api/login	                            Log in and get a token
+
+POST	   /api/tasks	                             Create a new task
+
+GET	       /api/tasks	                             Retrieve all tasks
+
+GET	       /api/tasks/{id}	                        Retrieve a specific task
+
+PUT	       /api/tasks/{id}	                        Update a task
+
+DELETE	   /api/tasks/{id}	                        Delete a task
+
+GET	       /api/tasks/filter/status/{status}	    Filter tasks by status
+
+GET	       /api/tasks/filter/due-date	            Filter tasks by due date range
+
+GET	       /api/tasks/filter/assignee/{assigneeId}	Filter tasks by assignee
+
+POST	   /api/tasks/{taskId}/dependencies	        Add a task dependency
+
+GET	       /api/tasks/{taskId}/dependencies	        Retrieve task dependencies
+
+put        /api/tasks/{id}/status                   update status
 
