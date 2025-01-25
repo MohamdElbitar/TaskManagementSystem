@@ -39,13 +39,17 @@ cd TaskManagementSystem
 ```
 ## Install Dependencies:
 
+```
 composer install
+```
 
 ## Set Up Environment:
 
 Copy the .env.example file to .env 
 
 # Update the .env file with your database credentials:
+
+```
 DB_CONNECTION=mysql
 
 DB_HOST=127.0.0.1
@@ -57,19 +61,19 @@ DB_DATABASE=task_management
 DB_USERNAME=root
 
 DB_PASSWORD=
-
+```
 ## Generate Application Key:
-
+```
 php artisan key:generate
-
+```
 # Run Migrations and Seeders:
-
+```
 php artisan migrate --seed
-
+```
 # Run the Application:
-
+```
 php artisan serve
-
+```
 
 ## ERD (Entity-Relationship Diagram)
 
@@ -78,14 +82,6 @@ Below is the Entity-Relationship Diagram (ERD) for the database:
 ![ERD Diagram](/public/images/ERD.png)
 
 
-## Contributing
-If you'd like to contribute, please fork the repository and create a pull request.
-
-## License
-This project is open-source and available under the MIT License.
-
-## Contact
-For any questions or issues, please contact [MohamedElbitar](https://github.com/MohamdElbitar).
 
 ## API Endpoints
 
@@ -103,3 +99,14 @@ For any questions or issues, please contact [MohamedElbitar](https://github.com/
 | POST     | `/api/tasks/{taskId}/dependencies`      | Add a task dependency.               |
 | GET      | `/api/tasks/{taskId}/dependencies`      | Retrieve task dependencies.          |
 | PUT      | `/api/tasks/{id}/status`                | Update task status.                  |
+
+
+
+## Contributing
+If you'd like to contribute, please fork the repository and create a pull request.
+
+## License
+This project is open-source and available under the MIT License.
+
+## Contact
+For any questions or issues, please contact [MohamedElbitar](https://github.com/MohamdElbitar).
