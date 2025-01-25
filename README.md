@@ -69,6 +69,11 @@ php artisan migrate --seed
 php artisan serve
 
 
+## ERD (Entity-Relationship Diagram)
+
+Below is the Entity-Relationship Diagram (ERD) for the database:
+
+![ERD Diagram](/images/ERD.png)
 
 
 ## Contributing
