@@ -8,13 +8,13 @@ Role-Based Access Control: Uses Spatie Laravel-Permission to manage roles (Manag
 
 ## Task Management:
 
-# 1-Create, update, and delete tasks.
+1-Create, update, and delete tasks.
 
-# 2-Add task dependencies.
+2-Add task dependencies.
 
-# 3-Filter tasks by status, due date range, and assigned user.
+3-Filter tasks by status, due date range, and assigned user.
 
-# 3-Database: MySQL database with migrations and seeders.
+4-Database: MySQL database with migrations and seeders.
 
 ## Requirements
 PHP >= 8.0
