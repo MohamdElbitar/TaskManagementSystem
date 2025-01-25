@@ -6,6 +6,11 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\TaskRepositoryInterface;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\UpdateStatusRequest;
+use App\Http\Requests\AddDependencyRequest;
+
 class TaskController extends Controller
 {
     protected $taskRepository;
@@ -20,17 +25,9 @@ class TaskController extends Controller
         return $this->taskRepository->all();
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'nullable|string',
-            'due_date' => 'required|date',
-            'status' => 'required|in:pending,completed,canceled',
-            'assignee_id' => 'required|exists:users,id',
-            'created_by' => 'required|exists:users,id',
-        ]);
-
+        $data = $request->validated();
         return $this->taskRepository->create($data);
     }
 
@@ -39,16 +36,9 @@ class TaskController extends Controller
         return $this->taskRepository->find($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateTaskRequest $request, $id)
     {
-        $data = $request->validate([
-            'title' => 'sometimes|string',
-            'description' => 'nullable|string',
-            'due_date' => 'sometimes|date',
-            'status' => 'sometimes|in:pending,completed,canceled',
-            'assignee_id' => 'sometimes|exists:users,id',
-        ]);
-
+        $data = $request->validated();
         return $this->taskRepository->update($id, $data);
     }
 
@@ -75,10 +65,10 @@ class TaskController extends Controller
         return $this->taskRepository->filterByAssignee($assigneeId);
     }
 
-    public function addDependency(Request $request, $taskId)
+    public function addDependency(AddDependencyRequest $request, $taskId)
     {
-        $dependencyId = $request->input('dependency_id');
-        return $this->taskRepository->addDependency($taskId, $dependencyId);
+        $data = $request->validated();
+        return $this->taskRepository->addDependency($taskId, $data['dependency_id']);
     }
 
     public function getDependencies($taskId)
@@ -92,15 +82,12 @@ class TaskController extends Controller
     }
 
 
-    public function updateStatus(Request $request, $id)
+    public function updateStatus(UpdateStatusRequest $request, $id)
     {
         $user = auth()->user();
+        $data = $request->validated();
 
-        $request->validate([
-            'status' => 'required|in:pending,completed,canceled',
-        ]);
-
-        $updated = $this->taskRepository->updateStatus($id, $request->input('status'), $user->id);
+        $updated = $this->taskRepository->updateStatus($id, $data['status'], $user->id);
 
         if ($updated) {
             return response()->json([
@@ -110,7 +97,7 @@ class TaskController extends Controller
         }
 
         return response()->json([
-            'message' => 'You are not authorized to update this task , or the task does not exist, or not all dependencies are completed.',
+            'message' => 'You are not authorized to update this task, or the task does not exist, or not all dependencies are completed.',
         ], 403);
     }
 
