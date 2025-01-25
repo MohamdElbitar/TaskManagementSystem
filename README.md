@@ -29,12 +29,14 @@ Spatie Laravel-Permission
 
 
 ## Installation
+
 # 1-Clone the Repository:
 
+```
 git clone https://github.com/MohamdElbitar/TaskManagementSystem.git
 
 cd TaskManagementSystem
-
+```
 ## Install Dependencies:
 
 composer install
