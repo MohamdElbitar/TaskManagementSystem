@@ -18,23 +18,23 @@ class Task extends Model
     ];
 
 
-    public function assignee(): BelongsTo
+    public function assignee()
     {
         return $this->belongsTo(User::class, 'assignee_id');
     }
 
 
-    public function creator(): BelongsTo
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function dependencies(): HasMany
+    public function dependencies()
     {
         return $this->hasMany(TaskDependency::class, 'task_id');
     }
 
-    public function dependentTasks(): HasMany
+    public function dependentTasks()
     {
         return $this->hasMany(TaskDependency::class, 'dependency_id');
     }
