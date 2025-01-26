@@ -67,25 +67,46 @@ class TaskRepository implements TaskRepositoryInterface
 
     public function updateStatus($id, $status, $userId)
     {
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
-        if (!$task || $task->assignee_id !== $userId) {
-            return false;
+        if (!$task) {
+            return [
+                'success' => false,
+                'message' => 'Task not found.',
+            ];
         }
+
+        if ($task->assignee_id !== $userId) {
+            return [
+                'success' => false,
+                'message' => 'You are not assigned to this task.',
+            ];
+        }
+
         if ($status === 'completed') {
-                $dependencies = TaskDependency::where('task_id', $id)->get();
+            $incompleteDependencies = TaskDependency::where('task_id', $id)
+                ->whereHas('dependencyData', function ($query) {
+                    $query->where('status', '!=', 'completed');
+                })
+                ->exists();
 
-                foreach ($dependencies as $dependency) {
-                    $dependentTask = Task::find($dependency->dependency_id);
-                    if ($dependentTask->status !== 'completed') {
-                        return false;
-                    }
-                }
+            if ($incompleteDependencies) {
+                return [
+                    'success' => false,
+                    'message' => 'Not all dependencies are completed.',
+                ];
+            }
         }
 
-        return $task->update([
-                'status' => $status,
+        $task->update([
+            'status' => $status,
         ]);
+
+        return [
+            'success' => true,
+            'message' => 'Task status updated successfully.',
+            'task' => $task,
+        ];
     }
 }
 

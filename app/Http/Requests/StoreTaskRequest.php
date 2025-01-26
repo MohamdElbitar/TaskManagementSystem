@@ -16,7 +16,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:today',
             'status' => 'required|in:pending,completed,canceled',
             'assignee_id' => 'required|exists:users,id',
             'created_by' => 'required|exists:users,id',

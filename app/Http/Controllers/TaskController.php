@@ -85,19 +85,26 @@ class TaskController extends Controller
     public function updateStatus(UpdateStatusRequest $request, $id)
     {
         $user = auth()->user();
+
+        if (!$user->hasPermissionTo('update task status')) {
+            return response()->json([
+                'message' => 'You are not authorized to update this task status.',
+            ], 403);
+        }
+
         $data = $request->validated();
 
-        $updated = $this->taskRepository->updateStatus($id, $data['status'], $user->id);
+        $result = $this->taskRepository->updateStatus($id, $data['status'], $user->id);
 
-        if ($updated) {
+        if ($result['success']) {
             return response()->json([
-                'message' => 'Task status updated successfully.',
-                'task' => Task::find($id),
+                'message' => $result['message'],
+                'task' => $result['task'],
             ]);
         }
 
         return response()->json([
-            'message' => 'You are not authorized to update this task, or the task does not exist, or not all dependencies are completed.',
+            'message' => $result['message'],
         ], 403);
     }
 

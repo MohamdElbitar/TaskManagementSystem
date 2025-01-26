@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/tasks', [TaskController::class, 'index'])->middleware('permission:view tasks');
     Route::get('/tasks/{id}', [TaskController::class, 'show'])->middleware('permission:view tasks');
-    Route::put('/tasks/{id}/status', [TaskController::class, 'updateStatus'])->middleware('permission:update task status');
+    Route::put('/tasks/{id}/status', [TaskController::class, 'updateStatus']);
 
     Route::get('/tasks/filter/status/{status}', [TaskController::class, 'filterByStatus'])->middleware('permission:view tasks');
     Route::get('/tasks/filter/due-date', [TaskController::class, 'filterByDueDateRange'])->middleware('permission:view tasks');
