@@ -18,6 +18,14 @@ class TaskController extends Controller
     public function __construct(TaskRepositoryInterface $taskRepository)
     {
         $this->taskRepository = $taskRepository;
+
+        $this->middleware(['permission:view tasks'])->only(['index', 'show', 'filterByStatus', 'filterByDueDateRange', 'filterByAssignee']);
+        $this->middleware(['permission:create tasks'])->only(['store']);
+        $this->middleware(['permission:update tasks'])->only(['update']);
+        $this->middleware(['permission:delete tasks'])->only(['destroy']);
+        $this->middleware(['permission:assign tasks'])->only(['assignTask', 'addDependency']);
+        $this->middleware(['permission:update task status'])->only(['updateStatus']);
+
     }
 
     public function index()
