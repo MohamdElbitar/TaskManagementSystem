@@ -16,7 +16,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'sometimes|date',
+            'due_date' => 'sometimes|date|after_or_equal:today',
             'status' => 'sometimes|in:pending,completed,canceled',
             'assignee_id' => 'sometimes|exists:users,id',
         ];

@@ -24,13 +24,19 @@ class TaskController extends Controller
         $this->middleware(['permission:update tasks'])->only(['update']);
         $this->middleware(['permission:delete tasks'])->only(['destroy']);
         $this->middleware(['permission:assign tasks'])->only(['assignTask', 'addDependency']);
-        $this->middleware(['permission:update task status'])->only(['updateStatus']);
+        // $this->middleware(['permission:update task status'])->only(['updateStatus']);
 
     }
 
     public function index()
     {
-        return $this->taskRepository->all();
+        $user = auth()->user();
+
+        if ($user->hasRole('manager')) {
+            return $this->taskRepository->all();
+        }
+
+        return $this->taskRepository->filterByAssignee($user->id);
     }
 
     public function store(StoreTaskRequest $request)
@@ -41,7 +47,17 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        return $this->taskRepository->find($id);
+        $user = auth()->user();
+
+        $task = $this->taskRepository->find($id);
+
+        if ($user->hasRole('manager') || $task->assignee_id === $user->id) {
+            return $task;
+        }
+
+        return response()->json([
+            'message' => 'You are not authorized to view this task.',
+        ], 403);
     }
 
     public function update(UpdateTaskRequest $request, $id)

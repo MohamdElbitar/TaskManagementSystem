@@ -102,6 +102,23 @@ Below is the Entity-Relationship Diagram (ERD) for the database:
 
 
 
+## Running with Docker
+
+To run the application using Docker, follow these steps:
+
+1. Install Docker from [here](https://www.docker.com/get-started).
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/MohamdElbitar/TaskManagementSystem.git
+   cd TaskManagementSystem
+
+## Build and run the containers:
+```
+docker-compose up -d
+```
+
+
+
 ## Contributing
 If you'd like to contribute, please fork the repository and create a pull request.
 
