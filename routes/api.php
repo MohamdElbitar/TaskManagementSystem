@@ -26,6 +26,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    // Route::resource('/tasks', TaskController::class);
     Route::post('/tasks', [TaskController::class, 'store'])->middleware('permission:create tasks');
     Route::put('/tasks/{id}', [TaskController::class, 'update'])->middleware('permission:update tasks');
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->middleware('permission:delete tasks');
