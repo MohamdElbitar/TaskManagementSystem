@@ -69,6 +69,13 @@ php artisan key:generate
 # Run Migrations and Seeders:
 ```
 php artisan migrate --seed
+
+php artisan db:seed --class=RolePermissionSeeder
+
+php artisan db:seed --class=UserSeeder
+
+
+
 ```
 # Run the Application:
 ```
