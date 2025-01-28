@@ -25,22 +25,20 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('tasks', TaskController::class)->middleware([
+        'index' => 'permission:view tasks',
+        'show' => 'permission:view tasks',
+        'store' => 'permission:create tasks',
+        'update' => 'permission:update tasks',
+        'destroy' => 'permission:delete tasks',
+    ]);
 
-    // Route::resource('/tasks', TaskController::class);
-    Route::post('/tasks', [TaskController::class, 'store'])->middleware('permission:create tasks');
-    Route::put('/tasks/{id}', [TaskController::class, 'update'])->middleware('permission:update tasks');
-    Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->middleware('permission:delete tasks');
     Route::post('/tasks/{taskId}/assign', [TaskController::class, 'assignTask'])->middleware('permission:assign tasks');
     Route::post('/tasks/{taskId}/dependencies', [TaskController::class, 'addDependency'])->middleware('permission:assign tasks');
     Route::get('/tasks/{taskId}/dependencies', [TaskController::class, 'getDependencies'])->middleware('permission:view tasks');
-
-
-    Route::get('/tasks', [TaskController::class, 'index'])->middleware('permission:view tasks');
-    Route::get('/tasks/{id}', [TaskController::class, 'show'])->middleware('permission:view tasks');
     Route::put('/tasks/{id}/status', [TaskController::class, 'updateStatus']);
 
     Route::get('/tasks/filter/status/{status}', [TaskController::class, 'filterByStatus'])->middleware('permission:view tasks');
     Route::get('/tasks/filter/due-date', [TaskController::class, 'filterByDueDateRange'])->middleware('permission:view tasks');
     Route::get('/tasks/filter/assignee/{assigneeId}', [TaskController::class, 'filterByAssignee'])->middleware('permission:view tasks');
-
 });
